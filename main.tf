@@ -28,7 +28,7 @@ resource "azurerm_subnet" "test_SN" {
   name                 = var.SN_name
   resource_group_name  = azurerm_resource_group.test_RG.name
   virtual_network_name = azurerm_virtual_network.test_VNet.name
-  address_prefixes     = ["10.0.2.0/24"]
+  address_prefixes     = var.VN_subnet
 }
 # Create public IPs
 resource "azurerm_public_ip" "myterraformpublicip" {
@@ -133,14 +133,12 @@ resource "azurerm_linux_virtual_machine" "test_VM" {
       private_key = tls_private_key.example_ssh.private_key_openssh
       agent       = false
     }
-
     inline = [
       "sudo apt-get update",
       "sudo apt-get install docker.io -y",
       "git clone https://github.com/Adebusy/AlaoTest.git",
       "sudo docker build -t myapp ./AlaoTest",
-      "sudo docker run -itd -p 80:8060 myapp",
-      "sudo docker run -d -p 80:80 httpd"
+      "sudo docker run -d -p 80:8060 myapp"
     ]
   }
 }

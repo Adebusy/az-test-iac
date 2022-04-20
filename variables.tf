@@ -28,6 +28,11 @@ variable "VN_address_space" {
   default = ["10.0.2.0/24"]
 }
 
+variable "VN_subnet" {
+  type    = list(string)
+  default = ["10.0.2.0/24"]
+}
+
 variable "test_NIC" {
   type    = string
   default = "test_NIC"
